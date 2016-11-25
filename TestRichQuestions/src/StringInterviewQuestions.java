@@ -17,6 +17,66 @@ public class StringInterviewQuestions {
 
 	 */
 	
+	public void removeDuplicates(char[] str)
+	{
+		if (str == null) return;
+		
+		int len = str.length;
+		if (len < 2) return;
+		
+		int tail = 1;
+		
+		
+		for (int i = 1; i < len; ++i) {
+
+            int j;
+            for (j = 0; j < tail; ++j) {
+            	if (str[i] == str[j]) break;
+            }
+            
+            if (j == tail) {
+            	str[tail]  = str[i];
+            	++tail;
+            }
+        }
+		
+		str[tail] = 0;
+		
+		System.out.println("len is " + str.length);
+		
+		for (int k = tail; k < len; k++) {
+			str[k] = 0;
+		}
+		
+		
+		System.out.println(str);
+		
+		return;
+	}
+	
+	
+	
+	public boolean checkUnique(String str) {
+		
+		char[] uniqueChar = new char[256];
+		
+		for (int i = 0; i < str.length(); i++) {
+			
+			char x = str.charAt(i); 
+			
+			if (uniqueChar[x] == '1') {
+				return false;
+			}
+			else {
+				uniqueChar[x] = '1';
+			}
+			
+		}
+		
+		
+		return true;
+	}
+	
 	
 	public boolean checkString(String str)
 	{
@@ -33,6 +93,8 @@ public class StringInterviewQuestions {
     	   
 		return true;
 	}
+	
+	
 	public void test()
 	{
 		List<User> allUsers = new ArrayList<User>();
