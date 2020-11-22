@@ -54,5 +54,56 @@ public class BFSExample
             }
         }
     }
+
+    // find neighbors of node using adjacency matrix
+    // if adjacency_matrix[i][j]==1, then nodes at index i and index j are connected
+    public ArrayList<BFSExample.Node> findNeighbours(int adjacency_matrix[][], BFSExample.Node x)
+    {
+        int nodeIndex=-1;
+
+        ArrayList<BFSExample.Node> neighbours=new ArrayList<BFSExample.Node>();
+        for (int i = 0; i < nodes.size(); i++) {
+            if(nodes.get(i).equals(x))
+            {
+                nodeIndex=i;
+                break;
+            }
+        }
+
+        if(nodeIndex!=-1)
+        {
+            for (int j = 0; j < adjacency_matrix[nodeIndex].length; j++) {
+                if(adjacency_matrix[nodeIndex][j]==1)
+                {
+                    neighbours.add(nodes.get(j));
+                }
+            }
+        }
+        return neighbours;
+    }
+
+
+    public void bfs(int adjacency_matrix[][], BFSExample.Node node)
+    {
+        queue.add(node);
+        node.visited=true;
+        while (!queue.isEmpty())
+        {
+
+            BFSExample.Node element=queue.remove();
+            System.out.print(element.data + "t");
+            ArrayList<BFSExample.Node> neighbours = findNeighbours(adjacency_matrix,element);
+            for (int i = 0; i < neighbours.size(); i++) {
+                BFSExample.Node n=neighbours.get(i);
+                if(n!=null && !n.visited)
+                {
+                    queue.add(n);
+                    n.visited=true;
+
+                }
+            }
+
+        }
+    }
 }
  
