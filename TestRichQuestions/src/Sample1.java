@@ -75,11 +75,11 @@ public class Sample1
 		}
 		return array;
 	}
-
-
-	public static void main(String [] args)
-	{
-        find_all_arrangements(1);
-		System.out.println("finished");
-	}
+//
+//
+//	public static void main(String [] args)
+//	{
+//        find_all_arrangements(1);
+//		System.out.println("finished");
+//	}
 }
