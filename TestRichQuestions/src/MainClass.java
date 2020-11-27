@@ -60,10 +60,22 @@ public class MainClass {
         bfsExample.bfs(adjacency_matrix, node40);
     }
 
+    public static void treePathSum() {
+        TreePathSum.TreeNode root = new TreePathSum.TreeNode(12);
+        root.left = new TreePathSum.TreeNode(7);
+        root.right = new TreePathSum.TreeNode(1);
+        root.left.left = new TreePathSum.TreeNode(9);
+        root.right.left = new TreePathSum.TreeNode(10);
+        root.right.right = new TreePathSum.TreeNode(5);
+        System.out.println("Tree has path: " + TreePathSum.hasPath(root, 23));
+        System.out.println("Tree has path: " + TreePathSum.hasPath(root, 16));
+    }
+
     public static void main(String arg[])
     {
         // the following is test straightforward bfs implementation....
         //testBFSFunction();
-        testBFSWithAdjacencyMatrix();
+        //testBFSWithAdjacencyMatrix();
+        treePathSum();
     }
 }
