@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainClass {
 
@@ -71,11 +72,23 @@ public class MainClass {
         System.out.println("Tree has path: " + TreePathSum.hasPath(root, 16));
     }
 
+    public static void reversetraversal() {
+        ReverseLevelOrderTraversal.TreeNode root = new ReverseLevelOrderTraversal.TreeNode(12);
+        root.left = new ReverseLevelOrderTraversal.TreeNode(7);
+        root.right = new ReverseLevelOrderTraversal.TreeNode(1);
+        root.left.left = new ReverseLevelOrderTraversal.TreeNode(9);
+        root.right.left = new ReverseLevelOrderTraversal.TreeNode(10);
+        root.right.right = new ReverseLevelOrderTraversal.TreeNode(5);
+        List<List<Integer>> result = ReverseLevelOrderTraversal.traverse(root);
+        System.out.println("Reverse level order traversal: " + result);
+    }
+
     public static void main(String arg[])
     {
         // the following is test straightforward bfs implementation....
         //testBFSFunction();
         //testBFSWithAdjacencyMatrix();
-        treePathSum();
+        //treePathSum();
+        reversetraversal();
     }
 }
