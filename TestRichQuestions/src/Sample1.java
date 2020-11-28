@@ -1,55 +1,85 @@
+import java.io.PrintWriter;
 import java.util.*;
 
 public class Sample1
 {
-		public static ArrayList<ArrayList<Integer>> find_words(String text, List<String> words) {
-			// Write your code here
-			ArrayList<ArrayList<Integer>> resultList = new ArrayList<>();
-			Map<String, List<Integer>> wordMap = new LinkedHashMap<>();
+	static List<String> convertBoardToString(int[] board) {
 
-			// add words to HashMap...
-			int index = 0;
+		List<String> boardString = new ArrayList<>();
 
-			for (String word : words) {
-				List<Integer> valueList = new ArrayList<>();
-				valueList.add(-1);
-				wordMap.put(word, valueList);
-			}
-
-			String[] wordList = text.split(" ");
-
-			for (String word: wordList) {
-				if (wordMap.containsKey(word)) {
-					// add index to map...
-					List<Integer> valueList = wordMap.get(word);
-                    if (valueList.contains(-1)) {
-						valueList.clear();;
-						valueList.add(index);
-					} else {
-						valueList.add(index);
-					}
+		for (int i= 0; i < 4; i++) {
+			StringBuilder sb = new StringBuilder();
+			for (int value: board) {
+				if (value == i) {
+					sb.append("q");
+				} else {
+					sb.append("-");
 				}
-				index = index + word.length() +1;
 			}
-			Iterator<Map.Entry<String, List<Integer>>> iterator = wordMap.entrySet().iterator();
-			while (iterator.hasNext()) {
-				Map.Entry<String, List<Integer>> entry = iterator.next();
-				resultList.add((ArrayList<Integer>)entry.getValue());
-			}
+			// add to list set
+			boardString.add(sb.toString());
+		}
+		return boardString;
+	}
 
-			return resultList;
+	static boolean safeToPlaceQueen(int[] board, int current) {
+		for (int i= 0; i < current; i++) {
+			// check same row...
+			if (board[i] == board[current])
+				return false;
+			// check diagonal...
+			if ((current -i) == Math.abs(board[current] - board[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+
+	static void helper(List<List<String>> res, int[] board, int current, int n) {
+		// base case
+		if (current == n) {
+			// pass back List of board combinations
+			// add position to each result set...
+			List<String> boardString = convertBoardToString(board);
+			res.add(boardString);
+			return;
 		}
 
-	public static void main(String [] args)
-	{
-		String text = "you are very very smart";
-		List<String> words = new ArrayList<>();
-		words.add("you");
-		words.add("are");
-		words.add("very");
-		words.add("handsome");
-		ArrayList<ArrayList<Integer>> result = find_words(text, words);
-
-		System.out.println("finished");
+		// recursive case
+		for (int i = 0; i < n; i++) {
+			board[current] = i;  // current = 2nd,
+			// check if condition valid....then recursively call helper
+			if (safeToPlaceQueen(board, current)) {
+				helper(res, board, current+1, n);
+			}
+		}
 	}
+
+
+	static String[][] find_all_arrangements(int n) {
+
+		List<List<String>> res = new ArrayList<>(); //-> [board1, board2]
+		// board is chessboard is 1-dimension - index = row postion, value = column.
+		// [2][0][3][1]
+		// [1][3][0][2]
+
+		// 0,0 -> 1 (true) ->
+		int [] board = new int[n];
+		helper(res, board, 0, n);
+		String[][] array = new String[res.size()][];
+		for (int i = 0; i < res.size(); i++) {
+			List<String> row = res.get(i);
+			array[i] = row.toArray(new String[row.size()]);
+		}
+		return array;
+	}
+//
+//
+//	public static void main(String [] args)
+//	{
+//        find_all_arrangements(1);
+//		System.out.println("finished");
+//	}
 }
